@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"regexp"
 
 	"github.com/legend80s/go-change-dir/cmd"
 	"github.com/legend80s/go-change-dir/utils"
@@ -31,8 +30,6 @@ func getRuntimeDirname(dir string) string {
 	return dir
 }
 
-var dbFilepath = utils.GenDBFilepath()
-
 func main() {
 	flag.Usage = myUsage
 	verbose := flag.Bool("verbose", false, "show more information")
@@ -40,11 +37,28 @@ func main() {
 
 	// stat cmd
 	statCmd := flag.NewFlagSet("stat", flag.ExitOnError)
+	// set search dir cmd
+	setSearchDirCmd := flag.NewFlagSet("set-root", flag.ExitOnError)
+	// clear cache cmd
+	clearCmd := flag.NewFlagSet("clear", flag.ExitOnError)
 
 	switch os.Args[1] {
 	case "stat":
 		statCmd.Parse(os.Args[2:])
-		cmd.Stat(dbFilepath)
+		cmd.Stat(utils.DBFilepath)
+		os.Exit(0)
+	case "set-root":
+		if len(os.Args) != 3 {
+			fmt.Println("`search-dir` required. Example: cdi set-root <search-dir>")
+			os.Exit(1)
+		}
+
+		setSearchDirCmd.Parse(os.Args[2:])
+		cmd.SetSearchDir(utils.DBFilepath, os.Args[2], *verbose)
+		os.Exit(0)
+	case "clear":
+		clearCmd.Parse(os.Args[2:])
+		cmd.ClearDB(utils.DBFilepath, *verbose)
 		os.Exit(0)
 	}
 
@@ -69,14 +83,15 @@ func main() {
 	}
 	// 如何获取 positional arguments
 	dirname := os.Args[flag.NFlag()+1]
-	base := getBaseDir()
+	base := cmd.GetSearchDir()
 
 	// println("verbose", *verbose)
 
-	target, db := "", map[string]string{}
+	// TODO: 测试下 --walk
+	target, db := "", utils.ReadDB(utils.DBFilepath, *verbose)
 
 	if !*walk {
-		target, db = utils.FindBestMatchFromDB(dbFilepath, dirname, *verbose)
+		target = utils.FindBestMatchFromDB(db.Shortcuts, dirname, *verbose)
 		// println("target from db:", target)
 
 		if target != "" {
@@ -96,7 +111,7 @@ func main() {
 			println("From walk dir")
 		}
 
-		utils.SaveToDB(dbFilepath, db, dirname, target, *verbose)
+		utils.SaveShortcutsToDB(utils.DBFilepath, db, dirname, target, *verbose)
 
 		cd(target)
 		return
@@ -105,18 +120,6 @@ func main() {
 	fmt.Printf("no dirname as \"%s\" match found in %s\n", dirname, base)
 
 	os.Exit(1)
-}
-
-func getBaseDir() string {
-	return normalize("~/workspace")
-}
-
-func normalize(dir string) string {
-	r := regexp.MustCompile("^~")
-
-	home, _ := os.UserHomeDir()
-
-	return r.ReplaceAllString(dir, home)
 }
 
 func cd(dir string) {

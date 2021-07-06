@@ -58,12 +58,12 @@ to cml
 
 ### Advanced Usage
 
-### 1. Set base search dir
+### 1. Set search dir
 
-The default base search dir is `~/workspace`, change it to `work`:
+The default search dir is `~/workspace`, change it to `work`:
 
 ```sh
-cdi set --base-dir ~/work
+cdi set-root ~/work
 ```
 
 ### 2. List saved shortcuts
@@ -72,9 +72,9 @@ cdi set --base-dir ~/work
 cdi stat
 ```
 
-utputs file content in `~/cdi-db-shortcuts.json`
+Outputs file content in `~/cdi-db-shortcuts.json`
 
-### 3. force search the dir tree
+### 3. Force search the dir tree
 
 ```sh
 --walk
@@ -84,6 +84,12 @@ Example:
 
 ```sh
 cdi --walk balance
+```
+
+### 4. Clear cache
+
+```sh
+cdi clear
 ```
 
 ## Testing

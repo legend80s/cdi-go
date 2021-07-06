@@ -17,11 +17,26 @@ func checkError(err error) {
 }
 
 func Stat(dbFilepath string) {
-	data := utils.UnmarshalDB(dbFilepath, false)
+	db := utils.ReadDB(dbFilepath, false)
 
 	table := simpletable.New()
 
-	for key, val := range data {
+	fmt.Println("Search directory:", db.Workspace)
+	// fmt.Println("db", db)
+
+	if len(db.Shortcuts) == 0 {
+		fmt.Println("DB empty:", db.Shortcuts)
+		return
+	}
+
+	// panic: runtime error: index out of range [1] with length 1
+	// table.Header = &simpletable.Header{
+	// 	Cells: []*simpletable.Cell{
+	// 		{Text: "db.Workspace"},
+	// 	},
+	// }
+
+	for key, val := range db.Shortcuts {
 		r := []*simpletable.Cell{
 			{Text: key},
 			{Text: val},
