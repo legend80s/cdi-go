@@ -7,6 +7,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strings"
 )
@@ -102,21 +103,39 @@ func match(target string, path string) bool {
 		return true
 	}
 
+	abbr := Abbr(base)
+
 	// 支持首字母缩写
-	if Abbr(base) == lowerCased {
+	if abbr == lowerCased {
+		return true
+	}
+
+	// cdi rs => balance-recharge-sdk not /helpers
+	if strings.HasPrefix(abbr, lowerCased) || strings.HasSuffix(abbr, lowerCased) {
 		return true
 	}
 
 	// 然后是包含关系
-	if strings.Contains(strings.ToLower(base), lowerCased) {
+	if len(lowerCased) > 2 && strings.Contains(strings.ToLower(base), lowerCased) {
 		return true
 	}
 
 	return false
 }
 
-func UnmarshalDB(dbFilepath string, verbose bool) map[string]string {
-	var dat = make(map[string]string)
+type DBStruct struct {
+	Workspace string            `json:"workspace"`
+	Shortcuts map[string]string `json:"shortcuts"`
+}
+
+// Read and unmarshal DB
+// What is the difference?
+// func ReadDB(dbFilepath string, verbose bool) dbStruct {
+func ReadDB(dbFilepath string, verbose bool) DBStruct {
+	dat := DBStruct{
+		Workspace: GetDefaultSearchDir(),
+		Shortcuts: map[string]string{},
+	}
 
 	byt, err := ioutil.ReadFile(dbFilepath)
 
@@ -141,41 +160,58 @@ func UnmarshalDB(dbFilepath string, verbose bool) map[string]string {
 }
 
 // db 方案能让耗时从 1.544s 下降到 0.426s
-func FindBestMatchFromDB(dbFilepath string, dirname string, verbose bool) (string, map[string]string) {
+func FindBestMatchFromDB(shortcuts map[string]string, dirname string, verbose bool) string {
 	// println("dbFilepath", dbFilepath)
 
-	dat := UnmarshalDB(dbFilepath, verbose)
-
 	if verbose {
-		fmt.Println(dat)
+		fmt.Println(shortcuts)
 	}
 
-	if target, ok := dat[dirname]; ok {
-		return target, dat
+	if target, ok := shortcuts[dirname]; ok {
+		return target
 	}
 
-	if target, ok := dat[Abbr(dirname)]; ok {
-		return target, dat
+	if target, ok := shortcuts[Abbr(dirname)]; ok {
+		return target
 	}
 
-	return "", dat
+	return ""
 }
 
-func SaveToDB(dbFilepath string, db map[string]string, shortcut string, path string, verbose bool) {
+func SaveWorkspaceToDB(dbFilepath string, database DBStruct, newWorkspacePath string, verbose bool) (bool, error) {
+	database.Workspace = newWorkspacePath
+
+	if verbose {
+		fmt.Printf("write workspace: \"%s\" to db.\n", newWorkspacePath)
+	}
+
+	return saveDB(dbFilepath, database, verbose)
+}
+
+func SaveShortcutsToDB(dbFilepath string, database DBStruct, shortcut string, path string, verbose bool) {
+	db := database.Shortcuts
+
 	db[shortcut] = path
 	db[Abbr(shortcut)] = path
 
 	if verbose {
 		fmt.Printf("write shortcut: \"%s\" and path:\"%s\" to db.\n", shortcut, path)
-		fmt.Println("new db", db)
 	}
 
-	byt, err := json.MarshalIndent(db, "", "  ")
+	saveDB(dbFilepath, database, verbose)
+}
+
+func saveDB(dbFilepath string, database DBStruct, verbose bool) (bool, error) {
+	if verbose {
+		fmt.Println("save new db", database)
+	}
+
+	byt, err := json.MarshalIndent(database, "", "  ")
 
 	if err != nil {
-		fmt.Println("db json stringify failed. db:", db, "error:", err)
+		fmt.Println("db json stringify failed. db:", database, "error:", err)
 
-		return
+		return false, err
 	}
 
 	if verbose {
@@ -189,11 +225,15 @@ func SaveToDB(dbFilepath string, db map[string]string, shortcut string, path str
 
 		fmt.Println("error:", err)
 
-		return
+		return false, err
 	}
+
+	return true, nil
 }
 
-func GenDBFilepath() string {
+var DBFilepath = genDBFilepath()
+
+func genDBFilepath() string {
 	homedir, _ := os.UserHomeDir()
 
 	dbFilepath := path.Join(homedir, "cdi-db-shortcuts.json")
@@ -216,4 +256,16 @@ func isFileNotExists(path string) bool {
 	_, err := os.Stat(path)
 
 	return os.IsNotExist(err)
+}
+
+func GetDefaultSearchDir() string {
+	return Normalize("~/workspace")
+}
+
+func Normalize(dir string) string {
+	r := regexp.MustCompile("^~")
+
+	home, _ := os.UserHomeDir()
+
+	return r.ReplaceAllString(dir, home)
 }
