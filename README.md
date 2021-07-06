@@ -58,27 +58,32 @@ to cml
 
 ### Advanced Usage
 
-### set base search dir
+### 1. Set base search dir
 
-the default base search dir is `~/workspace`, change it to `work`:
+The default base search dir is `~/workspace`, change it to `work`:
 
 ```sh
 cdi set --base-dir ~/work
 ```
 
-#### show shortcuts
+### 2. List saved shortcuts
 
 ```sh
-cdi js2schema --dry-run
-
-# or
-cdi js2schema -dr
+cdi stat
 ```
 
-outputs
+utputs file content in `~/cdi-db-shortcuts.json`
+
+### 3. force search the dir tree
 
 ```sh
-cd ~/workspace/legend80s/js2schema
+--walk
+```
+
+Example:
+
+```sh
+cdi --walk balance
 ```
 
 ## Testing
