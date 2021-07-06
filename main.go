@@ -15,7 +15,7 @@ var println = fmt.Println
 // var print = fmt.Print
 
 func myUsage() {
-	fmt.Printf("Usage: %s [OPTIONS] dirname_you_want_cd_into\n", os.Args[0])
+	fmt.Printf("Usage: %s [OPTIONS] dirname_you_want_cd_into\n", filepath.Base(os.Args[0]))
 	flag.PrintDefaults()
 }
 
@@ -38,13 +38,16 @@ func main() {
 	walk := flag.Bool("walk", false, "should walk directory tree")
 	flag.Parse()
 
+	if *verbose {
+		// https://bash.cyberciti.biz/guide/$@
+		fmt.Println("os.Args", os.Args)
+	}
+
 	if flag.NArg() == 0 {
 		println("No target dirname passed.")
 		flag.Usage()
 		os.Exit(1)
 	}
-
-	// fmt.Println("os.Args", os.Args)
 
 	// golang如何判断是从源码运行还是从二进制文件运行?
 	runtimeDirname := getRuntimeDirname(os.Args[0])
@@ -52,7 +55,6 @@ func main() {
 	if *verbose {
 		fmt.Println("__dirname", runtimeDirname)
 	}
-
 	// 如何获取 positional arguments
 	dirname := os.Args[flag.NFlag()+1]
 	base := getBaseDir()
