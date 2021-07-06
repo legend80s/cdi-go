@@ -13,7 +13,7 @@ func Abbr(str string) string {
 	upperRegexp := regexp.MustCompile("[A-Z]")
 
 	if match, _ := regexp.MatchString("^[a-z]+$", str); match {
-		return str
+		return string(str[0])
 	}
 
 	return strings.ToLower(
@@ -49,3 +49,7 @@ func (s ByLen) Swap(i, j int) {
 func (s ByLen) Less(i, j int) bool {
 	return len(s[i]) < len(s[j])
 }
+
+// func isLowercase(str string) bool {
+// 	return strings.ToLower(str) == str
+// }
