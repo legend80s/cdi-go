@@ -35,6 +35,7 @@ var dbFilepath = utils.GenDBFilepath()
 func main() {
 	flag.Usage = myUsage
 	verbose := flag.Bool("verbose", false, "show more information")
+	walk := flag.Bool("walk", false, "should walk directory tree")
 	flag.Parse()
 
 	if flag.NArg() == 0 {
@@ -58,16 +59,20 @@ func main() {
 
 	// println("verbose", *verbose)
 
-	target, db := utils.FindBestMatchFromDB(dbFilepath, dirname, *verbose)
-	// println("target from db:", target)
+	target, db := "", map[string]string{}
 
-	if target != "" {
-		if *verbose {
-			println("From DB")
+	if !*walk {
+		target, db = utils.FindBestMatchFromDB(dbFilepath, dirname, *verbose)
+		// println("target from db:", target)
+
+		if target != "" {
+			if *verbose {
+				println("From DB")
+			}
+
+			cd(target)
+			return
 		}
-
-		cd(target)
-		return
 	}
 
 	target = utils.FindBestMatch(base, dirname, *verbose)
