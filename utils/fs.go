@@ -94,12 +94,21 @@ func match(target string, path string) bool {
 	// fmt.Println(target, item)
 
 	lowerCased := strings.ToLower(target)
+	base := filepath.Base(path)
 
+	// 优先全匹配 cdi balance 将跳入 xxx/balance
+	// 支持层级 cdi test/mini-balance
 	if strings.HasSuffix(strings.ToLower(path), string(os.PathSeparator)+lowerCased) {
 		return true
 	}
 
-	if Abbr(filepath.Base(path)) == lowerCased {
+	// 支持首字母缩写
+	if Abbr(base) == lowerCased {
+		return true
+	}
+
+	// 然后是包含关系
+	if strings.Contains(strings.ToLower(base), lowerCased) {
 		return true
 	}
 
