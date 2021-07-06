@@ -115,10 +115,7 @@ func match(target string, path string) bool {
 	return false
 }
 
-// db 方案能让耗时从 1.544s 下降到 0.426s
-func FindBestMatchFromDB(dbFilepath string, dirname string, verbose bool) (string, map[string]string) {
-	// println("dbFilepath", dbFilepath)
-
+func UnmarshalDB(dbFilepath string, verbose bool) map[string]string {
 	var dat = make(map[string]string)
 
 	byt, err := ioutil.ReadFile(dbFilepath)
@@ -139,6 +136,15 @@ func FindBestMatchFromDB(dbFilepath string, dirname string, verbose bool) (strin
 			os.Exit(1)
 		}
 	}
+
+	return dat
+}
+
+// db 方案能让耗时从 1.544s 下降到 0.426s
+func FindBestMatchFromDB(dbFilepath string, dirname string, verbose bool) (string, map[string]string) {
+	// println("dbFilepath", dbFilepath)
+
+	dat := UnmarshalDB(dbFilepath, verbose)
 
 	if verbose {
 		fmt.Println(dat)

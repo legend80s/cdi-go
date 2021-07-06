@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 	"regexp"
 
+	"github.com/legend80s/go-change-dir/cmd"
 	"github.com/legend80s/go-change-dir/utils"
 )
 
@@ -36,6 +37,17 @@ func main() {
 	flag.Usage = myUsage
 	verbose := flag.Bool("verbose", false, "show more information")
 	walk := flag.Bool("walk", false, "should walk directory tree")
+
+	// stat cmd
+	statCmd := flag.NewFlagSet("stat", flag.ExitOnError)
+
+	switch os.Args[1] {
+	case "stat":
+		statCmd.Parse(os.Args[2:])
+		cmd.Stat(dbFilepath)
+		os.Exit(0)
+	}
+
 	flag.Parse()
 
 	if *verbose {
