@@ -21,7 +21,7 @@ func Stat(dbFilepath string) {
 
 	table := simpletable.New()
 
-	fmt.Println("Search directory:", db.Workspace)
+	// fmt.Println("Search directory:", db.Workspace)
 	// fmt.Println("db", db)
 
 	if len(db.Shortcuts) == 0 {
@@ -29,12 +29,12 @@ func Stat(dbFilepath string) {
 		return
 	}
 
-	// panic: runtime error: index out of range [1] with length 1
-	// table.Header = &simpletable.Header{
-	// 	Cells: []*simpletable.Cell{
-	// 		{Text: "db.Workspace"},
-	// 	},
-	// }
+	table.Header = &simpletable.Header{
+		Cells: []*simpletable.Cell{
+			{Text: "Shortcut"},
+			{Text: "Full Path", Align: simpletable.AlignCenter},
+		},
+	}
 
 	for key, val := range db.Shortcuts {
 		r := []*simpletable.Cell{
@@ -43,6 +43,13 @@ func Stat(dbFilepath string) {
 		}
 
 		table.Body.Cells = append(table.Body.Cells, r)
+	}
+
+	table.Footer = &simpletable.Footer{
+		Cells: []*simpletable.Cell{
+			{Text: "Search Root"},
+			{Text: db.Workspace},
+		},
 	}
 
 	table.SetStyle(simpletable.StyleUnicode)
