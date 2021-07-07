@@ -22,7 +22,7 @@ func FindBestMatch(base string, dirname string, verbose bool) string {
 	// print("base:", base, "change dir:", dirname)
 
 	walkDir(base, func(path string) bool {
-		matched = match(dirname, path)
+		matched = Match(dirname, path)
 
 		if matched {
 			// target = path
@@ -91,7 +91,7 @@ func walkDir(baseDir string, match func(path string) bool) {
 	}
 }
 
-func match(target string, path string) bool {
+func Match(target string, path string) bool {
 	// fmt.Println(target, item)
 
 	lowerCased := strings.ToLower(target)
