@@ -20,15 +20,15 @@ func myUsage() {
 }
 
 // In nodejs I use __dirname . What is the equivalent of this in Golang?
-func getRuntimeDirname(dir string) string {
-	dir, err := filepath.Abs(filepath.Dir(dir))
+// func getRuntimeDirname(dir string) string {
+// 	dir, err := filepath.Abs(filepath.Dir(dir))
 
-	if err != nil {
-		panic(err)
-	}
+// 	if err != nil {
+// 		panic(err)
+// 	}
 
-	return dir
-}
+// 	return dir
+// }
 
 func main() {
 	flag.Usage = myUsage
@@ -76,11 +76,11 @@ func main() {
 	}
 
 	// golang如何判断是从源码运行还是从二进制文件运行?
-	runtimeDirname := getRuntimeDirname(os.Args[0])
+	// runtimeDirname := getRuntimeDirname(os.Args[0])
 
-	if *verbose {
-		fmt.Println("__dirname", runtimeDirname)
-	}
+	// if *verbose {
+	// 	fmt.Println("__dirname", runtimeDirname)
+	// }
 	// 如何获取 positional arguments
 	dirname := os.Args[flag.NFlag()+1]
 	base := cmd.GetSearchDir()

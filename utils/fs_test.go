@@ -47,6 +47,10 @@ func TestMatch(t *testing.T) {
 		{paths: []string{"test/hello", "test/helpers"}, keyword: "ell", want: "test/hello", matchedPathLen: 1},
 		// Contains: keyword len must gt 2
 		{paths: []string{"test/hello", "test/helpers"}, keyword: "er", want: "", matchedPathLen: 0},
+
+		{paths: []string{"~/workspace/alipay/MiniRecharge/", "test/helpers"}, keyword: "MiniRecharge", want: "~/workspace/alipay/MiniRecharge/", matchedPathLen: 1},
+		{paths: []string{"~/workspace/alipay/MiniRecharge/", "test/helpers"}, keyword: "minirecharge", want: "~/workspace/alipay/MiniRecharge/", matchedPathLen: 1},
+		{paths: []string{"~/workspace/alipay/MiniRecharge/", "test/helpers"}, keyword: "mr", want: "~/workspace/alipay/MiniRecharge/", matchedPathLen: 1},
 	}
 
 	for _, tt := range tests {
