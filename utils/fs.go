@@ -111,7 +111,9 @@ func Match(target string, path string) bool {
 	}
 
 	// cdi rs => balance-recharge-sdk not /helpers
-	if strings.HasPrefix(abbr, lowerCased) || strings.HasSuffix(abbr, lowerCased) {
+	hasAbbr := abbr != base
+
+	if hasAbbr && (strings.HasPrefix(abbr, lowerCased) || strings.HasSuffix(abbr, lowerCased)) {
 		return true
 	}
 

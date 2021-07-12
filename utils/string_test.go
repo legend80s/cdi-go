@@ -15,8 +15,8 @@ func TestAbbr(t *testing.T) {
 		{original: "hello_world", want: "hw"},
 		{original: "helloWorld", want: "hw"},
 		{original: "HelloWorld", want: "hw"},
-		{original: "mr", want: "m"},
-		{original: "helpers", want: "h"},
+		{original: "mr", want: "mr"},
+		{original: "helpers", want: "helpers"},
 	}
 
 	for _, tt := range tests {

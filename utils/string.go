@@ -12,8 +12,10 @@ import (
 func Abbr(str string) string {
 	upperRegexp := regexp.MustCompile("[A-Z]")
 
+	// 小写
 	if match, _ := regexp.MatchString("^[a-z]+$", str); match {
-		return string(str[0])
+		return str
+		// return string(str[0])
 	}
 
 	return strings.ToLower(
