@@ -32,20 +32,27 @@ func myUsage() {
 
 func main() {
 	flag.Usage = myUsage
-	verbose := flag.Bool("verbose", false, "show more information")
-	walk := flag.Bool("walk", false, "should walk directory tree")
+	verbose := flag.Bool("verbose", false, "Show more information")
+	walk := flag.Bool("walk", false, "Should walk directory tree")
 
 	// stat cmd
 	statCmd := flag.NewFlagSet("stat", flag.ExitOnError)
+	// clear cache
+	clearCache := statCmd.Bool("clear", false, "Clear cache")
+
 	// set search dir cmd
 	setSearchDirCmd := flag.NewFlagSet("set-root", flag.ExitOnError)
-	// clear cache cmd
-	clearCmd := flag.NewFlagSet("clear", flag.ExitOnError)
 
 	switch os.Args[1] {
 	case "stat":
 		statCmd.Parse(os.Args[2:])
-		cmd.Stat(utils.DBFilepath)
+
+		if *clearCache {
+			cmd.ClearDB(utils.DBFilepath, *verbose)
+		} else {
+			cmd.Stat(utils.DBFilepath)
+		}
+
 		os.Exit(0)
 	case "set-root":
 		if len(os.Args) != 3 {
@@ -55,10 +62,6 @@ func main() {
 
 		setSearchDirCmd.Parse(os.Args[2:])
 		cmd.SetSearchDir(utils.DBFilepath, os.Args[2], *verbose)
-		os.Exit(0)
-	case "clear":
-		clearCmd.Parse(os.Args[2:])
-		cmd.ClearDB(utils.DBFilepath, *verbose)
 		os.Exit(0)
 	}
 
