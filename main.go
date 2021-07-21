@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"path"
 	"path/filepath"
 
 	"github.com/legend80s/go-change-dir/cmd"
@@ -34,6 +35,7 @@ func main() {
 	flag.Usage = myUsage
 	verbose := flag.Bool("verbose", false, "show more information")
 	walk := flag.Bool("walk", false, "should walk directory tree")
+	fallback := flag.Bool("fallback", false, "output fallback dir when no dir found")
 
 	// stat cmd
 	statCmd := flag.NewFlagSet("stat", flag.ExitOnError)
@@ -83,7 +85,7 @@ func main() {
 	// }
 	// 如何获取 positional arguments
 	dirname := os.Args[flag.NFlag()+1]
-	base := cmd.GetSearchDir()
+	searchRoot := cmd.GetSearchDir()
 
 	// println("verbose", *verbose)
 
@@ -104,7 +106,7 @@ func main() {
 		}
 	}
 
-	target = utils.FindBestMatch(base, dirname, *verbose)
+	target = utils.FindBestMatch(searchRoot, dirname, *verbose)
 
 	if target != "" {
 		if *verbose {
@@ -117,9 +119,12 @@ func main() {
 		return
 	}
 
-	fmt.Printf("no dirname as \"%s\" match found in %s\n", dirname, base)
-
-	os.Exit(1)
+	if *fallback {
+		fmt.Print(path.Join(searchRoot, dirname))
+	} else {
+		fmt.Printf("no such dirname like \"%s\" found in %s\n", dirname, searchRoot)
+		os.Exit(1)
+	}
 }
 
 func cd(dir string) {
