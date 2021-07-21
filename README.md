@@ -1,6 +1,6 @@
 # cdi
 
-> Search and **C**hange Current working **D**irectory **I**ntelligently.
+> Search and `C`hange Current working `D`irectory `I`ntelligently.
 
 Use `cd`
 
