@@ -33,5 +33,13 @@ func GetSearchDir() string {
 		return data.Workspace
 	}
 
-	return utils.Normalize("~/workspace")
+	workspace := utils.Normalize("~/workspace");
+
+	if utils.IsFileNotExists(workspace) {
+		home, _ := os.UserHomeDir()
+
+		return home
+	} else {
+		return workspace
+	}
 }
