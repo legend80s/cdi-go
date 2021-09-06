@@ -14,7 +14,7 @@ jobs:
     - name: Go Release Binaries
       uses: wangyoucao577/go-release-action@v1.20
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: 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
         goos: darwin
         goarch: amd64
         release_tag: ${{ github.event.inputs.tags }}
