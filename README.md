@@ -26,7 +26,7 @@ $ cdi mb
 
 ## Usage
 
-1 Add this shell function to your `.zshrc` because you cannot change the shell directory in golang process.
+1 Add the shell functions to your `.zshrc` because you cannot change shell directory in golang process.
 
 ```sh
 # cdi begin
@@ -46,7 +46,7 @@ alias cdi-stat-clear="~/where-cdi-cmd/cdi stat --clear"
 # cdi end
 ```
 
-2 Then suppose we have the dir list in `~/workspace/legend80s`
+2 Then suppose we have the directories list in `~/workspace/legend80s`
 
 ```txt
 cli-aid
