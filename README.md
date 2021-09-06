@@ -5,14 +5,15 @@
 Use `cd`
 
 ```sh
-➜  topup-center git:(master) ✗ cd mb
+$ cd mb
 cd: no such file or directory: mb
 ```
+😡
 
 Use `cdi`
 
 ```sh
-➜  topup-center git:(master) ✗ cdi mb
+$ cdi mb
 ➜  mini-balance git:(master) ✗
 ```
 
