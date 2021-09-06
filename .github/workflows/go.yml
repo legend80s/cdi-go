@@ -12,9 +12,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Go Release Binaries
-      uses: wangyoucao577/go-release-action@v1.20
+      uses: wangyoucao577/go-release-action@v1.12
       with:
-        github_token: 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
+        github_token: ${{ secrets.GITHUB_TOKEN }}
         goos: darwin
         goarch: amd64
         release_tag: ${{ github.event.inputs.tags }}
