@@ -8,6 +8,7 @@ Use `cd`
 $ cd mb
 cd: no such file or directory: mb
 ```
+
 😡
 
 Use `cdi`
@@ -21,7 +22,7 @@ $ cdi mb
 
 ## Features
 
-- Full name and abbr searching supported. *wont search node_modules*.
+- Full name and Abbr searching supported. *wont search node_modules*.
 - Speed. History will be stored in a db file (`~/cdi-db-shortcuts.json`) for search speed.
 
 ## Usage
