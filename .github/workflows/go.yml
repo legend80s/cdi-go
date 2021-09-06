@@ -1,9 +1,11 @@
 name: Go
 
 on:
-  push:
-    tags:
-      - "*" # triggers only if push new tag version, like `0.8.4` or else
+  release:
+    types: [created]
+  # push:
+    # tags:
+      # - "*" # triggers only if push new tag version, like `0.8.4` or else
 
 jobs:
 
@@ -12,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Go Release Binaries
-      uses: wangyoucao577/go-release-action@v1.12
+      uses: wangyoucao577/go-release-action@v1.20
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         goos: darwin
