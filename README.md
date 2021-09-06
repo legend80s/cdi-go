@@ -111,3 +111,9 @@ cdi --walk balance
 ```sh
 go test ./utils
 ```
+
+## Publish
+
+```sh
+git tag v1.x.x && gp && gp --tags
+```
