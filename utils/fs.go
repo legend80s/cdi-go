@@ -14,36 +14,72 @@ import (
 
 var print = fmt.Println
 
+type ByPriorityThenLen []PrioritizedMatcher
+
+func (s ByPriorityThenLen) Len() int {
+	return len(s)
+}
+
+func (s ByPriorityThenLen) Swap(i, j int) {
+	s[i], s[j] = s[j], s[i]
+}
+
+func (s ByPriorityThenLen) Less(i, j int) bool {
+	// return s[i].priority < s[j].priority
+	if s[i].Priority < s[j].Priority {
+		return true
+	}
+
+	if s[i].Priority == s[j].Priority {
+		return len(s[i].Path) < len(s[j].Path)
+	}
+
+	return false
+}
+
+type PrioritizedMatcher struct{
+	Path string
+	Priority int
+}
+
 func FindBestMatch(base string, dirname string, verbose bool) string {
-	matched := false
-	target := ""
-	var matches []string
+	var matches []PrioritizedMatcher
 
 	// print("base:", base, "change dir:", dirname)
 
 	walkDir(base, func(path string) bool {
-		matched = Match(dirname, path)
+		matched, priority := Match(dirname, path)
 
 		if matched {
 			// target = path
-			matches = append(matches, path)
+			matches = append(matches, PrioritizedMatcher{path, priority})
 		}
 
 		return matched
 	})
 
 	// print("matches:", matches)
-	sort.Sort(ByLen(matches))
+	SortIntelligently(matches);
 
 	if verbose {
-		print("matches after sort by length:", "[\n  "+strings.Join(matches, "\n  ")+"\n]")
+		// print("matches after sort by priority:", "[\n  "+strings.Join(matches, "\n  ")+"\n]")
+		print("matches after sort by priority:", "[\n  ", matches, "\n]")
 	}
 
+	target := ""
 	if matches != nil {
-		target = matches[0]
+		target = GetBestMatch(matches)
 	}
 
 	return target
+}
+
+func SortIntelligently(matches []PrioritizedMatcher)  {
+	sort.Sort(ByPriorityThenLen(matches))
+}
+
+func GetBestMatch(matches []PrioritizedMatcher) string {
+	return matches[0].Path;
 }
 
 var IGNORED_DIRS = [...]string{
@@ -91,38 +127,45 @@ func walkDir(baseDir string, match func(path string) bool) {
 	}
 }
 
-func Match(target string, path string) bool {
+func Match(target string, path string) (bool, int) {
 	// fmt.Println(target, item)
 
-	lowerCased := strings.ToLower(target)
+	lowerCasedTarget := strings.ToLower(target)
 	base := filepath.Base(path)
+	lowerCasedBase := strings.ToLower(base)
 
 	// 优先全匹配 cdi balance 将跳入 xxx/balance
-	// 支持层级 cdi test/mini-balance
-	if strings.HasSuffix(strings.ToLower(path), string(os.PathSeparator)+lowerCased) {
-		return true
+	// 支持层级 cdi test/mini-balance => path/to/test/mini-balance
+	// redundant `lowerCasedBase == lowerCasedTarget` is for performance
+	if lowerCasedBase == lowerCasedTarget ||
+		strings.HasSuffix(strings.ToLower(path), string(os.PathSeparator)+lowerCasedTarget) {
+		return true, 0
+	}
+
+	// 前缀。一般记忆都是前缀，故后缀不考虑
+	if strings.HasPrefix(lowerCasedBase, lowerCasedTarget) {
+		return true, 1
 	}
 
 	abbr := Abbr(base)
 
+	// fmt.Println(base, abbr)
+
 	// 支持首字母缩写
-	if abbr == lowerCased {
-		return true
+	if abbr == lowerCasedTarget {
+		return true, 2
 	}
 
 	// cdi rs => balance-recharge-sdk not /helpers
-	hasAbbr := abbr != base
+	// hasAbbr := abbr != base
+	// if hasAbbr && (strings.HasPrefix(abbr, lowerCased) || strings.HasSuffix(abbr, lowerCased)) {
+	// 	return true
+	// }
 
-	if hasAbbr && (strings.HasPrefix(abbr, lowerCased) || strings.HasSuffix(abbr, lowerCased)) {
-		return true
-	}
+	// 最后是完整单词包含关系
+	r, _ := regexp.Compile(fmt.Sprintf("\\b%s\\b", lowerCasedTarget))
 
-	// 然后是包含关系
-	if len(lowerCased) > 2 && strings.Contains(strings.ToLower(base), lowerCased) {
-		return true
-	}
-
-	return false
+	return r.MatchString(lowerCasedBase), 3
 }
 
 type DBStruct struct {
@@ -147,7 +190,7 @@ func ReadDB(dbFilepath string, verbose bool) DBStruct {
 	}
 
 	if verbose {
-		fmt.Println("len(byt)", len(byt), "string(byt)", string(byt), "string(byt) != ", string(byt) != "")
+		fmt.Println("len(byt)", len(byt), "string(byt)", string(byt), "string(byt) != ''", string(byt) != "")
 	}
 
 	// golang check if file is empty
