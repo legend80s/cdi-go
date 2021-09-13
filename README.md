@@ -165,6 +165,12 @@ cdi --walk balance
 go test ./utils
 ```
 
+## Build
+
+```sh
+go build -v -o cdi
+```
+
 ## Publish
 
 ```sh
