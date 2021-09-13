@@ -1,6 +1,6 @@
 # cdi
 
-> Search and `C`hange Current working `D`irectory `I`ntelligently.
+> `C`hange Current working `D`irectory `I`ntelligently.
 
 Use `cd`
 
@@ -22,8 +22,8 @@ $ cdi mb
 
 ## Features
 
-- Full name and Abbr searching supported. *wont search node_modules*.
-- Speed. History will be stored in a db file (`~/cdi-db-shortcuts.json`) for search speed.
+- Intelligent matching. *node_modules wont be searched*.
+- Speed. Histories will be stored in a db file (`~/cdi-db-shortcuts.json`) for search speed.
 
 ## Usage
 
@@ -47,7 +47,7 @@ alias cdi-stat-clear="~/where-cdi-cmd/cdi stat --clear"
 # cdi end
 ```
 
-2 Then suppose we have the directories list in `~/workspace/legend80s`
+2 Then suppose we have these directories in `~/workspace/`
 
 ```txt
 cli-aid
@@ -64,11 +64,64 @@ $ cdi ca
 
 will `cd` into `~/workspace/legend80s/cli-aid`
 
-### other cdi usage
+### `cdi` Match Priority from Highest to Lowest
 
-1. **Full** match the basename:`cdi js2schema` equal to `cd ~/workspace/legend80s/js2schema`
+1. **Full** match basename: `cdi js2schema` equal to `cd ~/workspace/legend80s/js2schema`
 2. **Abbr** match: `cdi ca` equal to `cd ~/workspace/legend80s/cli-aid`
-3. **Contains** match: `cdi lint` equal to `cd ~/workspace/legend80s/commit-msg-linter`
+3. **Prefix** match: `cdi cli` equal to `cd ~/workspace/legend80s/cli-aid`
+4. **Contains** match: `cdi msg` equal to `cd ~/workspace/legend80s/commit-msg-linter`
+
+Suppose we have these directories in `~/workspace/`:
+
+```txt
+dir-lab
+├── amuser-low-info
+├── long
+│   ├── ali
+│   ├── ali-test
+│   ├── alitest
+│   ├── hello-ali-test
+│   └── hello-alitest
+└── long-long-long-long-long
+    └── ali
+```
+
+`cdi ali` will match:
+
+```
+dir-lab
+├── amuser-low-info ✅
+├── long
+│   ├── ali ✅
+│   ├── ali-test ✅
+│   ├── alitest ✅
+│   ├── hello-ali-test ✅
+│   └── hello-alitest ❌
+└── long-long-long-long-long
+    └── ali ✅
+```
+
+After sorted by priority then by length:
+
+**Full match**
+
+✅ dir-lab/long/ali
+✅ dir-lab/long-long-long-long-long/ali
+
+**Abbr**
+
+✅ dir-lab/amuser-low-info
+
+**Prefix**
+
+✅ dir-lab/long/alitest
+✅ dir-lab/long/ali-test
+
+**Contains**
+
+✅ dir-lab/long/hello-ali-test
+
+So the best match is `dir-lab/long/ali`.
 
 ### Advanced Usage
 
