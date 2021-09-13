@@ -67,9 +67,9 @@ will `cd` into `~/workspace/legend80s/cli-aid`
 ### `cdi` Match Priority from Highest to Lowest
 
 1. **Full** match basename: `cdi js2schema` equal to `cd ~/workspace/legend80s/js2schema`
-2. **Abbr** match: `cdi ca` equal to `cd ~/workspace/legend80s/cli-aid`
-3. **Prefix** match: `cdi cli` equal to `cd ~/workspace/legend80s/cli-aid`
-4. **Contains** match: `cdi msg` equal to `cd ~/workspace/legend80s/commit-msg-linter`
+2. **Prefix** match: `cdi cli` equal to `cd ~/workspace/legend80s/cli-aid`
+3. **Abbr** match: `cdi ca` equal to `cd ~/workspace/legend80s/cli-aid`
+4. **Contains word** match: `cdi msg` equal to `cd ~/workspace/legend80s/commit-msg-linter`
 
 Suppose we have these directories in `~/workspace/`:
 
@@ -103,21 +103,21 @@ dir-lab
 
 After sorted by priority then by length:
 
-**Full match**
+#### Full match
 
 ✅ dir-lab/long/ali
 ✅ dir-lab/long-long-long-long-long/ali
 
-**Abbr**
-
-✅ dir-lab/amuser-low-info
-
-**Prefix**
+#### Prefix
 
 ✅ dir-lab/long/alitest
 ✅ dir-lab/long/ali-test
 
-**Contains**
+#### Abbr
+
+✅ dir-lab/amuser-low-info
+
+#### Contains word
 
 ✅ dir-lab/long/hello-ali-test
 
