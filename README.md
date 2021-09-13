@@ -25,6 +25,14 @@ $ cdi mb
 - Intelligent matching. *node_modules wont be searched*.
 - Speed. Histories will be stored in a db file (`~/cdi-db-shortcuts.json`) for search speed.
 
+## Download
+
+[Download cdi exe](https://github.com/legend80s/cdi-go/raw/master/cdi) and make it executable:
+
+```sh
+chmod +x ~/where-cdi-cmd/cdi
+```
+
 ## Usage
 
 1 Add the shell functions to your `.zshrc` because you cannot change shell directory in golang process.
