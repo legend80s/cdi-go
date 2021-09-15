@@ -114,11 +114,13 @@ After sorted by priority then by length:
 #### Full match
 
 ✅ dir-lab/long/ali
+
 ✅ dir-lab/long-long-long-long-long/ali
 
 #### Prefix
 
 ✅ dir-lab/long/alitest
+
 ✅ dir-lab/long/ali-test
 
 #### Abbr
