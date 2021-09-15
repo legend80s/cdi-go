@@ -1,4 +1,4 @@
-<h1 align="center">cd by Golang</h1>
+<h1 align="center">cd by golang</h1>
 <p align="center"><img src="https://golang.org/lib/godoc/images/footer-gopher.jpg"></img></p>
 
 > `C`hange Current working `D`irectory Fast, `I`ntelligently and Ergonomically in the Aspect of Human Searching Preferences
