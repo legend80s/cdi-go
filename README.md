@@ -77,9 +77,9 @@ $ cdi ca
 
 will `cd` into `~/workspace/legend80s/cli-aid`
 
-### Match by Ergonomics
+### Ergonomically
 
-ergonomics or human engineering, science dealing with the application of information on physical and psychological characteristics to the design of devices and systems for human use.
+> Ergonomics or human engineering, science dealing with the application of information on physical and psychological characteristics to the design of devices and systems for human use.
 
 Weight or priority from highest to lowest:
 
