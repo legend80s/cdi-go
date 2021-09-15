@@ -1,7 +1,9 @@
-# cdi
+<h1 align="center">cd by Golang</h1>
+<p align="center"><img src="https://golang.org/lib/godoc/images/footer-gopher.jpg"></img></p>
 
-> `C`hange Current working `D`irectory `I`ntelligently Powered by Golang.
-> `cd` 命令 golang 进阶版 `cdi`
+> `C`hange Current working `D`irectory Fast, `I`ntelligently and Ergonomically in the Aspect of Human Searching Preferences
+> 
+> `cd` 命令 golang 进阶版 `cdi`。符合人体工程学搜索习惯的 `cd` 命令
 
 Use `cd`
 
@@ -21,12 +23,14 @@ $ cdi mb
 
 😋
 
-## Features
+<h2 align="center">Features</h2>
 
-- Intelligent matching. *node_modules wont be searched*.
-- Speed. Histories will be stored in a db file (`~/cdi-db-shortcuts.json`) for search speed.
+- 🦄 Intelligent and ergonomical matching. Designed with an emphasis on ergonomics. Your search comfort and speed is a priority.
+- 🚀 Speed! Powered by Golang.
+- 🚀 Speed!! Histories will be stored in a db file (`~/cdi-db-shortcuts.json`) for search speed.
+- 🚀 Speed!!! node_modules and other black hole directories wont be searched.
 
-## Download
+<h2 align="center">Download</h2>
 
 [Download cdi exe](https://github.com/legend80s/cdi-go/raw/master/cdi) and make it executable:
 
@@ -34,7 +38,7 @@ $ cdi mb
 chmod +x ~/where-cdi-cmd/cdi
 ```
 
-## Usage
+<h2 align="center">Usage</h2>
 
 1 Add the shell functions to your `.zshrc` because you cannot change shell directory in golang process.
 
@@ -73,7 +77,11 @@ $ cdi ca
 
 will `cd` into `~/workspace/legend80s/cli-aid`
 
-### `cdi` Match Priority from Highest to Lowest
+### Match by Ergonomics
+
+ergonomics or human engineering, science dealing with the application of information on physical and psychological characteristics to the design of devices and systems for human use.
+
+Weight or priority from highest to lowest:
 
 1. **Full** match basename: `cdi js2schema` equal to `cd ~/workspace/legend80s/js2schema`
 2. **Prefix** match: `cdi cli` equal to `cd ~/workspace/legend80s/cli-aid`
@@ -170,19 +178,19 @@ Example:
 cdi --walk balance
 ```
 
-## Testing
+<h2 align="center">Testing</h2>
 
 ```sh
 go test ./utils
 ```
 
-## Build
+<h2 align="center">Build</h2>
 
 ```sh
 go build -v -o cdi
 ```
 
-## Publish
+<h2 align="center">Publish</h2>
 
 ```sh
 git tag v1.x.x && gp && gp --tags
