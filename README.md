@@ -1,6 +1,7 @@
 # cdi
 
-> `C`hange Current working `D`irectory `I`ntelligently.
+> `C`hange Current working `D`irectory `I`ntelligently Powered by Golang.
+> `cd` 命令 golang 进阶版 `cdi`
 
 Use `cd`
 
