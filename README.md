@@ -1,7 +1,9 @@
 <h1 align="center">cd by golang</h1>
 <p align="center"><img src="https://golang.org/lib/godoc/images/footer-gopher.jpg"></img></p>
 
-> `C`hange Current working `D`irectory Fast, `I`ntelligently and Ergonomically in the Aspect of Human Searching Preferences
+> `C`hange Current working `D`irectory Fast 🚀, `I`ntelligently 🐬.
+> 
+> And Ergonomically 🦄 in the Aspect of Human Searching Preferences.
 > 
 > `cd` 命令 golang 进阶版 `cdi`。符合人体工程学搜索习惯的 `cd` 命令
 
@@ -25,7 +27,7 @@ $ cdi mb
 
 <h2 align="center">Features</h2>
 
-- 🦄 Intelligent and ergonomical matching. Designed with an emphasis on ergonomics. Your search comfort and speed is a priority.
+- 🐬 Intelligent and ergonomical matching. Designed with an emphasis on ergonomics. Your search comfort and speed is a priority.
 - 🚀 Speed! Powered by Golang.
 - 🚀 Speed!! Histories will be stored in a db file (`~/cdi-db-shortcuts.json`) for search speed.
 - 🚀 Speed!!! node_modules and other black hole directories wont be searched.
