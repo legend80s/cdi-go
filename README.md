@@ -190,10 +190,12 @@ You can
 codi dir-you-want-to-open-in-vscode
 ``` 
 
-instead of
+instead of executing 2 commands
 
 ```sh
-code ~/the/long/long/and/hard-to-memorize-dir-that-you-want-to-open-in-vscode
+cd ~/the/long/long/and/hard-to-memorize-dir-that-you-want-to-open-in-vscode
+
+code .
 ```
 
 Put this in your ~/.zshrc:
