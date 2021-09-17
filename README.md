@@ -1,5 +1,5 @@
 <h1 align="center">cd by golang</h1>
-<p align="center"><img src="https://golang.org/lib/godoc/images/footer-gopher.jpg"></img></p>
+<p align="center"><img width="30%" src="https://golang.org/lib/godoc/images/footer-gopher.jpg"></img></p>
 
 > `C`hange Current working `D`irectory Fast 🚀, `I`ntelligently 🐬.
 > 
@@ -27,10 +27,13 @@ $ cdi mb
 
 <h2 align="center">Features</h2>
 
-- 🐬 Intelligent and ergonomical matching. Designed with an emphasis on ergonomics. Your search comfort and speed is a priority.
-- 🚀 Speed! Powered by Golang.
-- 🚀 Speed!! Histories will be stored in a db file (`~/cdi-db-shortcuts.json`) for search speed.
-- 🚀 Speed!!! node_modules and other black hole directories wont be searched.
+✔️ 🐬 Intelligent and ergonomical matching. Designed with an emphasis on ergonomics. Your search comfort and speed is a priority.
+
+✔️ 🚀 Speed! Powered by Golang.
+
+✔️ 🚀 Speed!! Histories will be stored in a db file (`~/cdi-db-shortcuts.json`) for search speed.
+
+✔️ 🚀 Speed!!! node_modules and other black hole directories wont be searched.
 
 <h2 align="center">Download</h2>
 
@@ -208,7 +211,7 @@ codi() {
   echo $target
 
   if [[ $target == *"no such dirname"* ]]; then
-    # DO NOTHING
+    # DO NOTHING WHEN NO DIRECTORY FOUND
   else
     code $(cdi-echo $1)
   fi
