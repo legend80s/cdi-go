@@ -1,4 +1,4 @@
-<h1 align="center">cd by golang</h1>
+<h1 align="center">cd by golang <img width="6%" src="https://golang.org/lib/godoc/images/go-logo-blue.svg"></img></h1>
 <p align="center"><img width="30%" src="https://golang.org/lib/godoc/images/footer-gopher.jpg"></img></p>
 
 > `C`hange Current working `D`irectory Fast 🚀, `I`ntelligently 🐬.
@@ -25,7 +25,7 @@ $ cdi mb
 
 😋
 
-<h2 align="center">Features</h2>
+<h2 align="center">🍬 Features</h2>
 
 ✔️ 🐬 Intelligent and ergonomical matching. Designed with an emphasis on ergonomics. Your search comfort and speed is a priority.
 
