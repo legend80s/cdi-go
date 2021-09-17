@@ -180,6 +180,39 @@ Example:
 cdi --walk balance
 ```
 
+<h2 align="center">More interesting usage 🤠</h2>
+
+### Make your VSCode `code` command much more intelligent and convenient!
+
+You can 
+
+```sh
+codi dir-you-want-to-open-in-vscode
+``` 
+
+instead of
+
+```sh
+code ~/the/long/long/and/hard-to-memorize-dir-that-you-want-to-open-in-vscode
+```
+
+Put this in your ~/.zshrc:
+
+```sh
+# Intelligent `code` command `codi`
+codi() {
+  target=$(~/where-cdi-cmd/cdi "$@")
+
+  echo $target
+
+  if [[ $target == *"no such dirname"* ]]; then
+    # DO NOTHING
+  else
+    code $(cdi-echo $1)
+  fi
+}
+```
+
 <h2 align="center">Testing</h2>
 
 ```sh
