@@ -37,10 +37,10 @@ $ cdi mb
 
 <h2 align="center">Download</h2>
 
-[Download cdi exe](https://github.com/legend80s/cdi-go/raw/master/cdi) and make it executable:
+[Download cdi exe](https://github.com/cdi-go/raw/master/cdi) and make it executable:
 
 ```sh
-chmod +x ~/where-cdi-cmd/cdi && xattr -c ./cdi
+chmod +x ~/path/to/downloaded/cdi && xattr -c ./cdi
 ```
 
 <h2 align="center">Usage</h2>
@@ -50,18 +50,18 @@ chmod +x ~/where-cdi-cmd/cdi && xattr -c ./cdi
 ```sh
 # cdi begin
 cdi() {
-  cd $(~/where-cdi-cmd/cdi -fallback "$@")
+  cd $(~/path/to/downloaded/cdi -fallback "$@")
 }
 
 # show debug info
 cdi-echo() {
-  echo $(~/where-cdi-cmd/cdi "$@")
+  echo $(~/path/to/downloaded/cdi "$@")
 }
 
 # show cache
-alias cdi-stat="~/where-cdi-cmd/cdi stat"
+alias cdi-stat="~/path/to/downloaded/cdi stat"
 # clear cache
-alias cdi-stat-clear="~/where-cdi-cmd/cdi stat --clear"
+alias cdi-stat-clear="~/path/to/downloaded/cdi stat --clear"
 # cdi end
 ```
 
@@ -80,7 +80,7 @@ js2schema
 $ cdi ca
 ```
 
-will `cd` into `~/workspace/legend80s/cli-aid`
+will `cd` into `~/workspace/cli-aid`
 
 ### Ergonomically
 
@@ -88,10 +88,10 @@ will `cd` into `~/workspace/legend80s/cli-aid`
 
 Weight or priority from highest to lowest:
 
-1. **Full** match basename: `cdi js2schema` equal to `cd ~/workspace/legend80s/js2schema`
-2. **Prefix** match: `cdi cli` equal to `cd ~/workspace/legend80s/cli-aid`
-3. **Abbr** match: `cdi ca` equal to `cd ~/workspace/legend80s/cli-aid`
-4. **Contains word** match: `cdi msg` equal to `cd ~/workspace/legend80s/commit-msg-linter`
+1. **Full** match basename: `cdi js2schema` equal to `cd ~/workspace/js2schema`
+2. **Prefix** match: `cdi cli` equal to `cd ~/workspace/cli-aid`
+3. **Abbr** match: `cdi ca` equal to `cd ~/workspace/cli-aid`
+4. **Contains word** match: `cdi msg` equal to `cd ~/workspace/commit-msg-linter`
 
 Suppose we have these directories in `~/workspace/`:
 
@@ -206,7 +206,7 @@ Put this in your ~/.zshrc:
 ```sh
 # Intelligent `code` command `codi`
 codi() {
-  target=$(~/where-cdi-cmd/cdi "$@")
+  target=$(~/path/to/downloaded/cdi "$@")
 
   echo $target
 
