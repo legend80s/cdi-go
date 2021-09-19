@@ -26,19 +26,63 @@ func (s ByPriorityThenLen) Swap(i, j int) {
 
 func (s ByPriorityThenLen) Less(i, j int) bool {
 	// return s[i].priority < s[j].priority
-	if s[i].Priority < s[j].Priority {
-		return true
-	}
+	iPriority := s[i].Priority
+	jPriority := s[j].Priority
 
-	if s[i].Priority == s[j].Priority {
+	// fmt.Println("s[i]", s[i], "\ns[j]", s[j])
+	// fmt.Println("iPriority", iPriority, "jPriority", jPriority)
+
+	if iPriority == jPriority {
 		return len(s[i].Path) < len(s[j].Path)
 	}
 
-	return false
+	iLevel := GetDiretoryLevel(s[i].Path)
+	jLevel := GetDiretoryLevel(s[j].Path)
+
+	// fmt.Println("iLevel", iLevel, "jLevel", jLevel)
+
+	if iPriority < jPriority {
+		return min(iLevel, jLevel)+2 >= max(iLevel, jLevel)
+		// return true
+	}
+
+	// fmt.Println("s[i].Path", s[i].Path, "iLevel", iLevel)
+	// fmt.Println("s[j].Path", s[j].Path, "jLevel", jLevel)
+
+	// we choose the shorter one when level too deep
+	// "too deep" means level diff > 2
+	return iLevel+2 < jLevel
 }
 
-type PrioritizedMatcher struct{
-	Path string
+func min(x int, y int) int {
+	if x < y {
+		return x
+	}
+
+	return y
+}
+
+func max(x int, y int) int {
+	if x > y {
+		return x
+	}
+
+	return y
+}
+
+func GetDiretoryLevel(path string) int {
+	separator := string(os.PathSeparator)
+
+	return len(
+		strings.Split(
+			strings.TrimLeft(path, separator),
+			separator,
+		),
+	)
+}
+
+type PrioritizedMatcher struct {
+	Path     string
 	Priority int
 }
 
@@ -59,7 +103,7 @@ func FindBestMatch(base string, dirname string, verbose bool) string {
 	})
 
 	// print("matches:", matches)
-	SortIntelligently(matches);
+	SortIntelligently(matches)
 
 	if verbose {
 		// print("matches after sort by priority:", "[\n  "+strings.Join(matches, "\n  ")+"\n]")
@@ -74,12 +118,13 @@ func FindBestMatch(base string, dirname string, verbose bool) string {
 	return target
 }
 
-func SortIntelligently(matches []PrioritizedMatcher)  {
+func SortIntelligently(matches []PrioritizedMatcher) {
+	// fmt.Println(matches)
 	sort.Sort(ByPriorityThenLen(matches))
 }
 
 func GetBestMatch(matches []PrioritizedMatcher) string {
-	return matches[0].Path;
+	return matches[0].Path
 }
 
 var IGNORED_DIRS = [...]string{
