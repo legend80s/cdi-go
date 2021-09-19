@@ -242,3 +242,71 @@ go build -v -o cdi
 ```sh
 git tag v1.x.x && gp && gp --tags
 ```
+
+<h2 align="center">Version History</h2>
+
+### V1
+
+Match against without priority
+
+- full match
+- abbr
+- abbr contains
+- basename letter contains
+
+Then pick the shortest one.
+
+### V2
+
+> Priority or weight should be taken into account.
+
+Match priority
+
+1. full match
+2. abbr
+3. abbr contains
+4. basename letter contains
+
+Then pick the one with highest priority if priority equals then pick the shortest one.
+
+### 3
+
+Match priority
+
+1. full match
+2. prefix
+3. abbr
+4. basename **word** contains
+
+Then pick the one with highest priority if priority equals then pick the shortest one.
+
+### V4
+
+> Directory nested level should be taken into account.
+
+Match priority
+
+1. full match
+2. prefix
+3. abbr
+4. basename word contains
+
+Then conditionaly sort by length or directory nested level.
+
+  1. If the directories take the same priority , we pick the shortest one.
+  2. Otherwise we pick the directory with least nested level, instead of the the one with higher priority but has more nested level greater than **2**.
+
+#### Directory nested level sorting
+
+```
+/Users/name/workspace/6/paytm/mr
+/Users/3/MiniRecharge
+```
+
+When we `cdi mr`, though the frist path `paytm/mr` is matched `mr` by "full match" with highest priority but its nested level is too deep (6).
+
+But the second path `/Users/3/MiniRecharge` is matched by "abbr" though with much lower priority but with lower nested level 3.
+
+`6 - 3 = 3 > 2`. So `cdi mr` will `cd` into `/Users/3/MiniRecharge`.
+
+But in V3 it will `cd` into `/Users/name/workspace/6/paytm/mr` because V3 always pick the one with highest priority.
