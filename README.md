@@ -49,8 +49,10 @@ chmod +x ~/path/to/downloaded/cdi && xattr -c ./cdi
 
 ```sh
 # cdi begin
+cdipath="~/path/to/downloaded/cdi"
+
 cdi() {
-  target=$(~/path/to/downloaded/cdi -fallback "$@")
+  target=$($cdipath -fallback "$@")
 
   echo $target
   cd $target
@@ -58,15 +60,15 @@ cdi() {
 
 # Show debug info
 cdi-echo() {
-  target=$(~/path/to/downloaded/cdi "$@")
+  target=$($cdipath "$@")
 
   echo target
 }
 
 # Show cache
-alias cdi-stat="~/path/to/downloaded/cdi stat"
+alias cdi-stat="$cdipath stat"
 # Clear cache
-alias cdi-stat-clear="~/path/to/downloaded/cdi stat --clear"
+alias cdi-stat-clear="$cdipath stat --clear && echo -n 'Clear cache success. ' && cdi-stat"
 # cdi end
 ```
 
@@ -211,7 +213,7 @@ Put this in your ~/.zshrc:
 ```sh
 # Intelligent `code` command `codi`
 codi() {
-  target=$(~/path/to/downloaded/cdi "$@")
+  target=$($cdipath "$@")
 
   echo $target
 
