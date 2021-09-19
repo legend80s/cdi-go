@@ -20,6 +20,7 @@ Use `cdi`
 
 ```sh
 $ cdi mb
+/Users/legend80s/workspace/mini-balance
 ➜  mini-balance git:(master) ✗
 ```
 
