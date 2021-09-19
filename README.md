@@ -2,9 +2,9 @@
 <p align="center"><img width="30%" src="https://golang.org/lib/godoc/images/footer-gopher.jpg"></img></p>
 
 > `C`hange Current working `D`irectory Fast 🚀, `I`ntelligently 🐬.
-> 
+>
 > And Ergonomically 🦄 in the Aspect of Human Searching Preferences.
-> 
+>
 > `cd` 命令 golang 进阶版 `cdi`。符合人体工程学搜索习惯的 `cd` 命令
 
 Use `cd`
@@ -50,17 +50,22 @@ chmod +x ~/path/to/downloaded/cdi && xattr -c ./cdi
 ```sh
 # cdi begin
 cdi() {
-  cd $(~/path/to/downloaded/cdi -fallback "$@")
+  target=$(~/path/to/downloaded/cdi -fallback "$@")
+
+  echo $target
+  cd $target
 }
 
-# show debug info
+# Show debug info
 cdi-echo() {
-  echo $(~/path/to/downloaded/cdi "$@")
+  target=$(~/path/to/downloaded/cdi "$@")
+
+  echo target
 }
 
-# show cache
+# Show cache
 alias cdi-stat="~/path/to/downloaded/cdi stat"
-# clear cache
+# Clear cache
 alias cdi-stat-clear="~/path/to/downloaded/cdi stat --clear"
 # cdi end
 ```
@@ -187,11 +192,11 @@ cdi --walk balance
 
 ### Make your VSCode `code` command much more intelligent and convenient!
 
-You can 
+You can
 
 ```sh
 codi dir-you-want-to-open-in-vscode
-``` 
+```
 
 instead of executing 2 commands
 
