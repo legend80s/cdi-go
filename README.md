@@ -291,7 +291,7 @@ Match priority
 3. abbr
 4. basename word contains
 
-Then conditionaly sort by length or directory nested level.
+Then conditionally sort by length or directory nested level.
 
   1. If the directories take the same priority , we pick the shortest one.
   2. Otherwise we pick the directory with least nested level, instead of the the one with higher priority but has more nested level greater than **2**.
@@ -303,10 +303,10 @@ Then conditionaly sort by length or directory nested level.
 /Users/3/MiniRecharge
 ```
 
-When we `cdi mr`, though the frist path `paytm/mr` is matched `mr` by "full match" with highest priority but its nested level is too deep (6).
+When we `cdi mr`, though the first path `paytm/mr` is matched `mr` by "full match" with highest priority but its nested level is too deep (6).
 
-But the second path `/Users/3/MiniRecharge` is matched by "abbr" though with much lower priority but with lower nested level 3.
+But the second path `/Users/3/MiniRecharge` matched by "abbr" though with much lower priority but has lower nested level 3.
 
-`6 - 3 = 3 > 2`. So `cdi mr` will `cd` into `/Users/3/MiniRecharge`.
+`6 - 3 = 3 > 2`. So `cdi mr` will `cd` into the second path `/Users/3/MiniRecharge`.
 
-But in V3 it will `cd` into `/Users/name/workspace/6/paytm/mr` because V3 always pick the one with highest priority.
+In V3 it will `cd` into `/Users/name/workspace/6/paytm/mr` because V3 always pick the one with highest priority.
