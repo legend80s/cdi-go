@@ -31,9 +31,9 @@ $ cdi mb
 
 ✔️ 🚀 Speed! Powered by Golang.
 
-✔️ 🚀 Speed!! Histories will be stored in a db file (`~/cdi-db-shortcuts.json`) for search speed.
+✔️ 🚀 Speed! Histories will be stored in a db file (`~/cdi-db-shortcuts.json`) for search speed.
 
-✔️ 🚀 Speed!!! node_modules and other black hole directories wont be searched.
+✔️ 🚀 Speed! node_modules and other black hole directories wont be searched.
 
 <h2 align="center">Download</h2>
 
