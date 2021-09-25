@@ -38,7 +38,7 @@ $ cdi mb
 
 <h2 align="center">Download</h2>
 
-[Download cdi exe](https://github.com/legend80s/cdi-go/raw/master/cdi-v4) and make it executable:
+[Download cdi exe](#version-history) and make it executable:
 
 ```sh
 chmod +x ~/path/to/downloaded/cdi && xattr -c ./cdi
@@ -252,7 +252,7 @@ git tag v1.x.x && gp && gp --tags
 
 <h2 align="center">Version History</h2>
 
-### V1
+### [V1 ☞](https://github.com/legend80s/cdi-go/raw/master/cdi-v1)
 
 Match against without priority
 
@@ -287,7 +287,7 @@ Match priority
 
 Then pick the one with highest priority if priority equals then pick the shortest one.
 
-### V4
+### [V4 ☞](https://github.com/legend80s/cdi-go/raw/master/cdi-v4)
 
 > Directory nested level should be taken into account.
 
@@ -301,7 +301,7 @@ Match priority
 Then conditionally sort by length or directory nested level.
 
   1. If the directories take the same priority , we pick the shortest one.
-  2. Otherwise we pick the directory with least nested level, instead of the the one with higher priority but has more nested level greater than **2**.
+  2. Otherwise we pick the directory with least nested level, instead of the the one with higher priority but has more nested level greater than **1**.
 
 #### Directory nested level sorting
 
