@@ -41,34 +41,43 @@ func (s ByPriorityThenLen) Less(i, j int) bool {
 
 	// fmt.Println("iLevel", iLevel, "jLevel", jLevel)
 
-	if iPriority < jPriority {
-		return min(iLevel, jLevel)+2 >= max(iLevel, jLevel)
-		// return true
-	}
-
-	// fmt.Println("s[i].Path", s[i].Path, "iLevel", iLevel)
-	// fmt.Println("s[j].Path", s[j].Path, "jLevel", jLevel)
-
 	// we choose the shorter one when level too deep
 	// "too deep" means level diff > 2
-	return iLevel+2 < jLevel
-}
+	DIFF := 1
 
-func min(x int, y int) int {
-	if x < y {
-		return x
+	if iPriority < jPriority {
+		// j is the weaker one, but it can gain power from is flatter nested level
+		if jLevel+DIFF < iLevel {
+			// true => less is in the front
+			// so false => pick jLevel
+			return false
+		}
+
+		// true => less is in the front
+		// so true => pick iLevel
+		return true
 	}
 
-	return y
+	// true => less is in the front
+	// i is the weaker one, so it can gain power from level too
+	return iLevel+DIFF < jLevel
 }
 
-func max(x int, y int) int {
-	if x > y {
-		return x
-	}
+// func min(x int, y int) int {
+// 	if x < y {
+// 		return x
+// 	}
 
-	return y
-}
+// 	return y
+// }
+
+// func max(x int, y int) int {
+// 	if x > y {
+// 		return x
+// 	}
+
+// 	return y
+// }
 
 func GetDiretoryLevel(path string) int {
 	separator := string(os.PathSeparator)
@@ -119,8 +128,9 @@ func FindBestMatch(base string, dirname string, verbose bool) string {
 }
 
 func SortIntelligently(matches []PrioritizedMatcher) {
-	// fmt.Println(matches)
+	// fmt.Println("before sorting", matches)
 	sort.Sort(ByPriorityThenLen(matches))
+	// fmt.Println("after sorting", matches)
 }
 
 func GetBestMatch(matches []PrioritizedMatcher) string {
@@ -179,11 +189,14 @@ func Match(target string, path string) (bool, int) {
 	base := filepath.Base(path)
 	lowerCasedBase := strings.ToLower(base)
 
-	// 优先全匹配 cdi balance 将跳入 xxx/balance
-	// 支持层级 cdi test/mini-balance => path/to/test/mini-balance
-	// redundant `lowerCasedBase == lowerCasedTarget` is for performance
+	// Full match: `cdi balance` will jump to `xxx/balance`.
+	// Nested dir supported: cdi test/mini-balance` => `path/to/test/mini-balance`.
+	// Redundant `lowerCasedBase == lowerCasedTarget` is for performance.
 	if lowerCasedBase == lowerCasedTarget ||
-		strings.HasSuffix(strings.ToLower(path), string(os.PathSeparator)+lowerCasedTarget) {
+		strings.HasSuffix(
+			strings.ToLower(path),
+			string(os.PathSeparator)+lowerCasedTarget,
+		) {
 		return true, 0
 	}
 
