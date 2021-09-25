@@ -61,6 +61,17 @@ func TestMatch(t *testing.T) {
 			want:           "/Users/name/workspace/6/paytm/MiniRecharge",
 			matchedPathLen: 2,
 		},
+		{
+			paths: []string{
+				"/Users/name/workspace/6/paytm/MiniRecharge",
+				"/Users/name/workspace/legend80s/gallery/dist/mac/UGallery.app/Contents/11/mr.lproj",
+			},
+			keyword: "mr",
+			// we choose "MiniRecharge" though "mr.lproj"'s priority is higher than MiniRecharge abbr
+			// but "mr.lproj" is too long. diff 11 - 6 = 5 > 2
+			want:           "/Users/name/workspace/6/paytm/MiniRecharge",
+			matchedPathLen: 2,
+		},
 		// choose "MiniRecharge" because diff 6 - 2 = 4 > 2
 		{
 			paths: []string{
@@ -91,14 +102,14 @@ func TestMatch(t *testing.T) {
 			want:           "/Users/MiniRecharge",
 			matchedPathLen: 3,
 		},
-		// choose "mr" because diff 6 - 4 = 2 not > 2
+		// choose "MiniRecharge" because diff 6 - 4 = 2 > 1
 		{
 			paths: []string{
 				"/Users/name/workspace/6/paytm/mr",
 				"/Users/3/4/MiniRecharge",
 			},
 			keyword:        "mr",
-			want:           "/Users/name/workspace/6/paytm/mr",
+			want:           "/Users/3/4/MiniRecharge",
 			matchedPathLen: 2,
 		},
 		// choose "mr" because diff 6 - 5 = 1 not > 2
@@ -152,8 +163,8 @@ func TestMatch(t *testing.T) {
 				"/Users/name/workspace/alipay/paytm/7/8/9/MiniRecharge",
 			},
 			keyword: "mr",
-			// we choose level 11 because 11 - 9 not > 2
-			want:           "/Users/name/workspace/legend80s/gallery/dist/mac/UGallery.app/Contents/11/mr.lproj",
+			// we choose "MiniRecharge" because 11 - 9 > 1
+			want:           "/Users/name/workspace/alipay/paytm/7/8/9/MiniRecharge",
 			matchedPathLen: 2,
 		},
 
