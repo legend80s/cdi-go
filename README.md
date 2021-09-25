@@ -226,6 +226,12 @@ codi() {
 }
 ```
 
+<h2 align="center">Development</h2>
+
+```sh
+go run main.go -walk {directory-to-cd}
+```
+
 <h2 align="center">Testing</h2>
 
 ```sh
@@ -270,7 +276,7 @@ Match priority
 
 Then pick the one with highest priority if priority equals then pick the shortest one.
 
-### 3
+### V3
 
 Match priority
 
@@ -299,15 +305,21 @@ Then conditionally sort by length or directory nested level.
 
 #### Directory nested level sorting
 
-```
-/Users/name/workspace/6/paytm/mr
-/Users/3/MiniRecharge
+> We choose the directory with least nested level when the counterparts's level is too deep. "too deep" means level diff > 1
+
+For example:
+
+```plaintext
+/Users/name/workspace/6/paytm/mr # (priority 0, directory nested level 6)
+/Users/3/MiniRecharge # (priority 2, directory nested level 3)
 ```
 
 When we `cdi mr`, though the first path `paytm/mr` is matched `mr` by "full match" with highest priority but its nested level is too deep (6).
 
 But the second path `/Users/3/MiniRecharge` matched by "abbr" though with much lower priority but has lower nested level 3.
 
-`6 - 3 = 3 > 2`. So `cdi mr` will `cd` into the second path `/Users/3/MiniRecharge`.
+`6 - 3 = 3 > 1`. So `cdi mr` will `cd` into the second path `/Users/3/MiniRecharge`.
 
-In V3 it will `cd` into `/Users/name/workspace/6/paytm/mr` because V3 always pick the one with highest priority.
+In V2 or V3 it will `cd` into `/Users/name/workspace/6/paytm/mr` because V3 always pick the one with highest priority.
+
+In V1 it will `cd` into `/Users/3/MiniRecharge` because V1 always pick the shortest path.
