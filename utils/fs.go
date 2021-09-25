@@ -26,7 +26,7 @@ func (s ByPriorityThenLen) Swap(i, j int) {
 
 func (s ByPriorityThenLen) Less(i, j int) bool {
 	// v1
-	return len(s[i].Path) < len(s[j].Path)
+	// return len(s[i].Path) < len(s[j].Path)
 
 	// v2 v3
 	// return s[i].priority < s[j].priority
