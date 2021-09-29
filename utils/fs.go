@@ -24,12 +24,28 @@ func (s ByPriorityThenLen) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
 
+func v5(iPath string, jPath string) bool {
+	iLevel := GetDiretoryLevel(iPath)
+	jLevel := GetDiretoryLevel(jPath)
+
+	if iLevel != jLevel {
+		return iLevel < jLevel
+	}
+
+	return len(iPath) < len(jPath)
+}
+
 func (s ByPriorityThenLen) Less(i, j int) bool {
+	iPath := s[i].Path
+	jPath := s[j].Path
+
 	// v1
-	// return len(s[i].Path) < len(s[j].Path)
+	// return len(iPath) < len(jPath)
 
 	// v2 v3
 	// return s[i].priority < s[j].priority
+
+	// return v5(iPath, jPath)
 
 	iPriority := s[i].Priority
 	jPriority := s[j].Priority
@@ -38,11 +54,11 @@ func (s ByPriorityThenLen) Less(i, j int) bool {
 	// fmt.Println("iPriority", iPriority, "jPriority", jPriority)
 
 	if iPriority == jPriority {
-		return len(s[i].Path) < len(s[j].Path)
+		return len(iPath) < len(jPath)
 	}
 
-	iLevel := GetDiretoryLevel(s[i].Path)
-	jLevel := GetDiretoryLevel(s[j].Path)
+	iLevel := GetDiretoryLevel(iPath)
+	jLevel := GetDiretoryLevel(jPath)
 
 	// fmt.Println("iLevel", iLevel, "jLevel", jLevel)
 
