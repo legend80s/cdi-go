@@ -58,7 +58,7 @@ cd ~ && git clone --depth 1 https://github.com/legend80s/cdi-go.git && sh ~/cdi-
 To **update**, you should run the update script:
 
 ```sh
-cd ~ && git clone --depth 1 https://github.com/legend80s/cdi-go.git && sh ~/cdi-go/scripts/install.sh ~/cdi-go/cdi-v5 update
+cd ~ && rm -rf ~/cdi-go && git clone --depth 1 https://github.com/legend80s/cdi-go.git && sh ~/cdi-go/scripts/install.sh ~/cdi-go/cdi-v5 update
 ```
 
 To **uninstall** just remove cdi and codi functions in `~/.zshrc`.
