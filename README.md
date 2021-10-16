@@ -303,19 +303,6 @@ Then conditionally sort by length or directory nested level.
   1. If the directories take the same priority , we pick the shortest one.
   2. Otherwise we pick the directory with least nested level, instead of the the one with higher priority but has more nested level greater than **1**.
 
-### [V5 ☞](https://github.com/legend80s/cdi-go/raw/master/cdi-v5)
-
-> 返璞归真，简单即美
-
-Match against without priority
-
-- full match
-- prefix
-- abbr
-- basename word contains
-
-Then pick the **least nested level** directory.
-
 #### Directory nested level sorting
 
 > We choose the directory with least nested level when the counterparts's level is too deep. "too deep" means level diff > 1
@@ -336,3 +323,16 @@ But the second path `/Users/3/MiniRecharge` matched by "abbr" though with much l
 In V2 or V3 it will `cd` into `/Users/name/workspace/6/paytm/mr` because V3 always pick the one with highest priority.
 
 In V1 it will `cd` into `/Users/3/MiniRecharge` because V1 always pick the shortest path.
+
+### [V5 ☞](https://github.com/legend80s/cdi-go/raw/master/cdi-v5)
+
+> 返璞归真，简单即美
+
+Match against without priority
+
+- full match
+- prefix
+- abbr
+- basename word contains
+
+Then pick the **least nested level** directory.
