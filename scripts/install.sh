@@ -50,7 +50,7 @@ codi() {
   if [[ \$target == *\"no such dirname\"* ]]; then
     # DO NOTHING WHEN NO DIRECTORY FOUND
   else
-    code \$(cdi-echo \$1)
+    code \$(cdi-echo \$1) || echo "code command not exists. Try install it by ${GREEN}https://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line${RESET}"
   fi
 }
 
