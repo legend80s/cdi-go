@@ -41,7 +41,7 @@ $ cdi mb
 [Download cdi exe](https://github.com/legend80s/cdi-go/raw/master/cdi-v5) and make it executable:
 
 ```sh
-chmod +x ~/path/to/downloaded/cdi && xattr -c ./cdi
+chmod +x ~/path/to/downloaded/cdi && xattr -c ~/path/to/downloaded/cdi
 ```
 
 <h2 align="center">Usage</h2>
