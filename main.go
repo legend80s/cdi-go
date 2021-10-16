@@ -105,8 +105,12 @@ func main() {
 				println("From DB")
 			}
 
-			cd(target)
-			return
+			existing := utils.IsFileExisting(target)
+
+			if existing {
+				cd(target)
+				return
+			}
 		}
 	}
 
