@@ -38,7 +38,7 @@ $ cdi mb
 
 <h2 align="center">Download</h2>
 
-[Download cdi exe](https://github.com/legend80s/cdi-go/raw/master/cdi-v5) and make it executable:
+[Download cdi exe](https://raw.githubusercontent.com/legend80s/cdi-go/master/cdi-v5) and make it executable:
 
 ```sh
 chmod +x ~/path/to/downloaded/cdi && xattr -c ~/path/to/downloaded/cdi
