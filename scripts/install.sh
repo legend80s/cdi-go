@@ -5,24 +5,14 @@ GREEN='\033[32m'
 YELLOW='\033[33m'
 CYAN='\033[96m'
 RED='\033[0;31m'
-RESET='\033[0m' # No Color
-
-# function definitions
-
-fail() {
-  echo "1. Download ${GREEN}https://github.com/legend80s/cdi-go/raw/master/cdi-v5${RESET}"
-  echo "2. $ sh ./scripts/install.sh ~/path/to/downloaded/cdi\n"
-}
+RESET='\033[0m'
 
 success() {
   cdipath=$1
 
   # make it executable
-  chmod +x $cdipath && xattr -c $cdipath
-
-  # echo "${GREEN}cdi executable has been downloaded to \"$cdipath\".${RESET}"
-
-  # Add the shell functions to your .zshrc because you cannot change shell directory in golang process.
+  chmod +x $cdipath && xattr -c $cdipath &&
+    echo "${GREEN}✅ $cdipath${RESET} has been made executable.${RESET}"
 
   echo "# cdi begin
 cdipath=\"$cdipath\"
@@ -41,12 +31,6 @@ cdi-echo() {
   echo \$target
 }
 
-# Show cache
-alias cdi-stat=\"\$cdipath stat\"
-
-# Clear cache
-alias cdi-stat-clear=\"\$cdipath stat --clear && echo -n 'Clear cache success. ' && cdi-stat\"
-
 # Intelligent \`code\` command \`codi\`
 codi() {
   target=\$(\$cdipath \"\$@\")
@@ -59,22 +43,28 @@ codi() {
     code \$(cdi-echo \$1)
   fi
 }
+
+# Show cache
+alias cdi-stat=\"\$cdipath stat\"
+
+# Clear cache
+alias cdi-stat-clear=\"\$cdipath stat --clear && echo -n 'Clear cache success. ' && cdi-stat\"
 # cdi end
-" >> ~/.zshrc
+" >> ~/.zshrc &&
+  echo "✅ Shell functions ${GREEN}\`cdi\`${RESET} and ${GREEN}\`codi\`${RESET} has been added to your ${GREEN}~/.zshrc${RESET}"
+  echo "${GREEN}🎉 You are ready to go to use \`cdi\` and \`codi\`.${RESET}"
 }
 
-finally() {
-  echo "${YELLOW}Before using \`cdi\` or \`codi\`, YOU SHOULD RUN \`source ~/.zshrc\` BY YOURSELF to make these commands to take effect.${RESET}"
-}
+# https://stackoverflow.com/questions/6482377/check-existence-of-input-argument-in-a-bash-shell-script
+if [ -z "$1" ]; then
+  echo "${RED}🚨 Empty params.${RESET}\n"
 
-# execute
-
-if [[ $# -eq 0 ]]; then
-  echo "Empty arguments. You should pass the downloaded cdi file path as the first argument.\n"
-
-  fail
+  echo "${GREEN}Example: \n"
+  echo "sh scripts/install.sh ~/path/to/downloaded/cdi${RESET}"
 else
-  success $1
-fi;
-
-finally
+  if [ -f "$1" ]; then
+    success $1
+  else
+    echo "${RED}❌ $1 not exists!${RESET}"
+  fi
+fi
