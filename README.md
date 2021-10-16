@@ -26,6 +26,17 @@ $ cdi mb
 
 😋
 
+- [🍬 Features](#-features)
+- [Download](#download)
+- [Usage](#usage)
+- [More interesting usage 🤠](#more-interesting-usage-)
+- [Development](#development)
+- [Testing](#testing)
+- [Build](#build)
+- [Publish](#publish)
+- [Version History](#version-history)
+- [What does the `install.sh` do](#what-does-the-installsh-do)
+
 <h2 align="center">🍬 Features</h2>
 
 ✔️ 🐬 Intelligent and ergonomical matching. Designed with an emphasis on ergonomics. Your search comfort and speed is a priority.
@@ -38,42 +49,15 @@ $ cdi mb
 
 <h2 align="center">Download</h2>
 
-[Download cdi exe](https://github.com/legend80s/cdi-go/raw/master/cdi-v5) and make it executable:
+To **install** or **update** `cdi`, you should run the install script:
 
 ```sh
-chmod +x ~/path/to/downloaded/cdi && xattr -c ~/path/to/downloaded/cdi
+cd ~ && git clone --depth 1 https://github.com/legend80s/cdi-go.git && sh ~/cdi-go/scripts/install.sh ~/cdi-go/cdi-v5 && source ~/.zshrc
 ```
 
 <h2 align="center">Usage</h2>
 
-1 Add the shell functions to your `.zshrc` because you cannot change shell directory in golang process.
-
-```sh
-# cdi begin
-cdipath="~/path/to/downloaded/cdi"
-
-cdi() {
-  target=$($cdipath -fallback "$@")
-
-  echo $target
-  cd $target
-}
-
-# Show debug info
-cdi-echo() {
-  target=$($cdipath "$@")
-
-  echo target
-}
-
-# Show cache
-alias cdi-stat="$cdipath stat"
-# Clear cache
-alias cdi-stat-clear="$cdipath stat --clear && echo -n 'Clear cache success. ' && cdi-stat"
-# cdi end
-```
-
-2 Then suppose we have these directories in `~/workspace/`
+Suppose we have these directories in `~/workspace/`
 
 ```txt
 cli-aid
@@ -82,7 +66,7 @@ gallery-server
 js2schema
 ```
 
-3 just use `cdi` instead of the builtin `cd` command
+Just use `cdi` instead of the builtin `cd` command
 
 ```sh
 $ cdi ca
@@ -336,3 +320,45 @@ Match against without priority
 - basename word contains
 
 Then pick the **least nested level** directory.
+
+## What does the `install.sh` do
+
+It will add the shell functions to your `.zshrc` because you cannot change shell directory in golang process.
+
+```sh
+# cdi begin
+cdipath="~/path/to/downloaded/cdi"
+
+cdi() {
+  target=$($cdipath -fallback "$@")
+
+  echo $target
+  cd $target
+}
+
+# Show debug info
+cdi-echo() {
+  target=$($cdipath "$@")
+
+  echo target
+}
+
+# Intelligent `code` command `codi`
+codi() {
+  target=$($cdipath "$@")
+
+  echo $target
+
+  if [[ $target == *"no such dirname"* ]]; then
+    # DO NOTHING WHEN NO DIRECTORY FOUND
+  else
+    code $(cdi-echo $1)
+  fi
+}
+
+# Show cache
+alias cdi-stat="$cdipath stat"
+# Clear cache
+alias cdi-stat-clear="$cdipath stat --clear && echo -n 'Clear cache success. ' && cdi-stat"
+# cdi end
+```
