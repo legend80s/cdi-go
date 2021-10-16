@@ -362,7 +362,7 @@ func genDBFilepath() string {
 
 	dbFilepath := path.Join(homedir, "cdi-db-shortcuts.json")
 
-	if IsFileNotExists(dbFilepath) {
+	if IsFileNotExisting(dbFilepath) {
 		file, err := os.Create(dbFilepath)
 
 		if err != nil {
@@ -376,10 +376,14 @@ func genDBFilepath() string {
 }
 
 // https://stackoverflow.com/questions/12518876/how-to-check-if-a-file-exists-in-go/22467409#22467409
-func IsFileNotExists(path string) bool {
+func IsFileNotExisting(path string) bool {
 	_, err := os.Stat(path)
 
 	return os.IsNotExist(err)
+}
+
+func IsFileExisting(path string) bool {
+	return !IsFileNotExisting(path)
 }
 
 func GetDefaultSearchDir() string {
