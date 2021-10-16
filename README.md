@@ -189,6 +189,8 @@ cdi --walk balance
 
 ### Make your VSCode `code` command much more intelligent and convenient!
 
+> What is code command? Read [Launching VSCode from the command line](https://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line).
+
 You can
 
 ```sh
