@@ -49,11 +49,21 @@ $ cdi mb
 
 <h2 align="center">Download</h2>
 
-To **install** or **update** `cdi`, you should run the install script:
+To **install** `cdi`, you should run the install script:
 
 ```sh
 cd ~ && git clone --depth 1 https://github.com/legend80s/cdi-go.git && sh ~/cdi-go/scripts/install.sh ~/cdi-go/cdi-v5 && source ~/.zshrc
 ```
+
+To **update**, you should run the install script:
+
+```sh
+cd ~ && git clone --depth 1 https://github.com/legend80s/cdi-go.git && sh ~/cdi-go/scripts/install.sh ~/cdi-go/cdi-v5 update
+```
+
+To **uninstall** just remove cdi and codi functions in `~/.zshrc`.
+
+*If the download takes too long, jump to FAQ [Install mannually](#install-manually).*
 
 <h2 align="center">Usage</h2>
 
@@ -321,12 +331,32 @@ Match against without priority
 
 Then pick the **least nested level** directory.
 
-## What does the `install.sh` do
+## FAQ
+
+### Install manually
+
+1. Download the cdi cmd https://raw.githubusercontent.com/legend80s/cdi-go/master/cdi-v5.
+
+2. Make it executable:
+
+   ```sh
+   chmod +x ~/path/to/downloaded/cdi && xattr -c ~/path/to/downloaded/cdi
+   ```
+
+3. Copy the script in [what-does-the-installsh-do](#what-does-the-installsh-do) to you `~/.zshrc`.
+
+4. Make it alive:
+
+   ```
+   source ~/.zshrc
+   ```
+
+### What does the `install.sh` do
 
 It will add the shell functions to your `.zshrc` because you cannot change shell directory in golang process.
 
 ```sh
-# cdi begin
+## --- cdi begin ---
 cdipath="~/path/to/downloaded/cdi"
 
 cdi() {
@@ -360,5 +390,5 @@ codi() {
 alias cdi-stat="$cdipath stat"
 # Clear cache
 alias cdi-stat-clear="$cdipath stat --clear && echo -n 'Clear cache success. ' && cdi-stat"
-# cdi end
+## --- cdi end ---
 ```
