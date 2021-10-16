@@ -399,3 +399,7 @@ alias cdi-stat="$cdipath stat"
 alias cdi-stat-clear="$cdipath stat --clear && echo -n 'Clear cache success. ' && cdi-stat"
 ## --- cdi end ---
 ```
+
+## References
+
+[Git Shallow Clone and Clone Depth](https://linuxhint.com/git-shallow-clone-and-clone-depth/)
