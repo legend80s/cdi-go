@@ -55,7 +55,7 @@ To **install** `cdi`, you should run the install script:
 cd ~ && git clone --depth 1 https://github.com/legend80s/cdi-go.git && sh ~/cdi-go/scripts/install.sh ~/cdi-go/cdi-v5 && source ~/.zshrc
 ```
 
-To **update**, you should run the install script:
+To **update**, you should run the update script:
 
 ```sh
 cd ~ && git clone --depth 1 https://github.com/legend80s/cdi-go.git && sh ~/cdi-go/scripts/install.sh ~/cdi-go/cdi-v5 update
@@ -349,6 +349,13 @@ Then pick the **least nested level** directory.
 
    ```
    source ~/.zshrc
+   ```
+
+5. Give it a try:
+
+   ```shell
+   cdi whatever-directory-you-want-to-jump-into
+   codi whatever-directory-you-want-to-open-in-vscode
    ```
 
 ### What does the `install.sh` do
