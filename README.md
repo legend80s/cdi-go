@@ -248,7 +248,7 @@ git tag v1.x.x && gp && gp --tags
 
 <h2 align="center">Version History</h2>
 
-### [V1 ☞](https://github.com/legend80s/cdi-go/raw/master/cdi-v1)
+### [V1 ☞](https://raw.githubusercontent.com/legend80s/cdi-go/master/cdi-v1)
 
 Match against without priority
 
@@ -283,7 +283,7 @@ Match priority
 
 Then pick the one with highest priority if priority equals then pick the shortest one.
 
-### [V4 ☞](https://github.com/legend80s/cdi-go/raw/master/cdi-v4)
+### [V4 ☞](https://raw.githubusercontent.com/legend80s/cdi-go/master/cdi-v4)
 
 > Directory nested level should be taken into account.
 
@@ -320,7 +320,7 @@ In V2 or V3 it will `cd` into `/Users/name/workspace/6/paytm/mr` because V3 alwa
 
 In V1 it will `cd` into `/Users/3/MiniRecharge` because V1 always pick the shortest path.
 
-### [V5 ☞](https://github.com/legend80s/cdi-go/raw/master/cdi-v5)
+### [V5 ☞](https://raw.githubusercontent.com/legend80s/cdi-go/master/cdi-v5)
 
 > 返璞归真，简单即美
 
