@@ -345,7 +345,7 @@ Then pick the **least nested level** directory.
    chmod +x ~/path/to/downloaded/cdi && xattr -c ~/path/to/downloaded/cdi
    ```
 
-3. Copy the script in [what-does-the-installsh-do](#what-does-the-installsh-do) to you `~/.zshrc`.
+3. Copy the script in [what-does-the-installsh-do](#what-does-the-installsh-do) to your `~/.zshrc`.
 
 4. Make it alive:
 
