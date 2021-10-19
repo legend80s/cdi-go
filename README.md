@@ -63,7 +63,7 @@ cd ~ && rm -rf ~/cdi-go && git clone --depth 1 https://github.com/legend80s/cdi-
 
 To **uninstall** just remove cdi and codi functions in `~/.zshrc`.
 
-*If the download takes too long, jump to FAQ [Install mannually](#install-manually).*
+*If the download takes too long or you are very security concerned, jump to FAQ [Install mannually](#install-manually).*
 
 <h2 align="center">Usage</h2>
 
