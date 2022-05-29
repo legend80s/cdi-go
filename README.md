@@ -7,6 +7,8 @@
 >
 > `cd` 命令 golang 进阶版 `cdi`。符合人体工程学搜索习惯的 `cd` 命令
 
+<img src="https://visitor-badge.glitch.me/badge?page_id=legend80s/cdi-go&left_color=blue&right_color=green" alt="visitor count" />
+
 Use `cd`
 
 ```sh
