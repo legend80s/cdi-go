@@ -404,6 +404,10 @@ alias cdi-stat-clear="$cdipath stat --clear && echo -n 'Clear cache success. ' &
 ## --- cdi end ---
 ```
 
+## TODO
+
+- [ ] Faster directory search, use concurrent search logic like `fd`
+
 ## References
 
 [Git Shallow Clone and Clone Depth](https://linuxhint.com/git-shallow-clone-and-clone-depth/)
